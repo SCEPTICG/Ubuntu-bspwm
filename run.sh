@@ -22,3 +22,17 @@ EOF
 # Clear screen and print the logo
 clear
 print_logo
+
+# Exit on any error
+set -e
+
+# Cargar funciones útiles
+source ./utils.sh
+
+# Leer lista de paquetes desde bspwm.conf, ignorar líneas vacías o con #
+mapfile -t packages < <(grep -Ev '^\s*#|^\s*$' bspwm.conf)
+
+# Instalar paquetes faltantes
+install_missing_packages "${packages[@]}"
+
+
