@@ -27,7 +27,7 @@ print_logo
 set -e
 
 # Cargar funciones auxiliares
-source ./utils.sh  # Esto es lo más importante
+source ./utils.sh
 
 # Archivo de configuración bspwm.conf
 conf_file="bspwm.conf"
@@ -57,7 +57,14 @@ done < "$conf_file"
 # Instalar paquetes faltantes
 install_missing_packages "${packages[@]}"
 
-# Copiar archivos de configuración
+# Crear directorios de configuración y copiar los archivos
+echo "Copiando configuraciones..."
+
+# Verificar y copiar las configuraciones de bspwm, sxhkd y polybar
+create_dir_if_not_exists "$HOME/.config/bspwm"
+create_dir_if_not_exists "$HOME/.config/sxhkd"
+create_dir_if_not_exists "$HOME/.config/polybar"
+
 copy_config_folders "${configs[@]}"
 
 # Asegurarse de que bspwm y sxhkd se ejecuten al iniciar la sesión

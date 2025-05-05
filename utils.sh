@@ -32,8 +32,22 @@ copy_config_folders() {
     src="$dir"
     dest="$HOME/.config/$dir"
 
+    # Verificar si el directorio de destino existe, si no, crear
+    if [ ! -d "$dest" ]; then
+      echo "Creando directorio $dest"
+      mkdir -p "$dest"
+    fi
+
     echo "Copiando configuración de $src a $dest"
-    mkdir -p "$dest"
     cp -r "$src/"* "$dest/"
   done
+}
+
+# Verificar si un directorio existe, si no, crearlo
+create_dir_if_not_exists() {
+  dir="$1"
+  if [ ! -d "$dir" ]; then
+    echo "Creando directorio $dir"
+    mkdir -p "$dir"
+  fi
 }
