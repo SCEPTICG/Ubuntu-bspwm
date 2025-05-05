@@ -27,7 +27,7 @@ print_logo
 set -e
 
 # Cargar funciones auxiliares
-source ./utils.sh
+source ./utils.sh  # Esto es lo más importante
 
 # Archivo de configuración bspwm.conf
 conf_file="bspwm.conf"
@@ -85,4 +85,3 @@ chmod +x "$HOME/.xinitrc"
 
 # Recomendación para reiniciar
 echo "✅ La configuración se ha completado con éxito. Por favor, reinicia tu computadora para aplicar todos los cambios."
-

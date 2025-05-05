@@ -5,7 +5,7 @@ is_installed() {
   dpkg -s "$1" &>/dev/null
 }
 
-# Instala todos los paquetes que no estén ya presentes
+# Instala todos los paquetes que no estén presentes
 install_missing_packages() {
   local missing=()
 
@@ -24,4 +24,16 @@ install_missing_packages() {
   else
     echo "Todos los paquetes ya están instalados."
   fi
+}
+
+# Copia carpetas de configuración desde el repo a ~/.config
+copy_config_folders() {
+  for dir in "$@"; do
+    src="$dir"
+    dest="$HOME/.config/$dir"
+
+    echo "Copiando configuración de $src a $dest"
+    mkdir -p "$dest"
+    cp -r "$src/"* "$dest/"
+  done
 }
