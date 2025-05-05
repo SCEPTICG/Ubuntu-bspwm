@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Verifica si un paquete está instalado
+is_installed() {
+  dpkg -s "$1" &>/dev/null
+}
+
+# Instala todos los paquetes que no estén ya presentes
+install_missing_packages() {
+  local missing=()
+
+  for pkg in "$@"; do
+    if ! is_installed "$pkg"; then
+      missing+=("$pkg")
+    else
+      echo "[OK] $pkg ya está instalado"
+    fi
+  done
+
+  if [ "${#missing[@]}" -gt 0 ]; then
+    echo "Instalando paquetes faltantes: ${missing[*]}"
+    sudo apt-get update
+    sudo apt-get install -y "${missing[@]}"
+  else
+    echo "Todos los paquetes ya están instalados."
+  fi
+}
